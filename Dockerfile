@@ -20,7 +20,7 @@ COPY . .
 RUN CGO_ENABLED=0 go build -o main .
 
 # Start from a scratch image
-FROM scratch
+FROM busybox
 
 # Copy the binary from the build stage
 COPY --from=build /app/main /main

@@ -37,7 +37,7 @@ func main() {
 	serverPool := &ServerPool{}
 
 	// Read config
-	data, err := os.ReadFile("config.yaml")
+	data, err := os.ReadFile("/app/config.yaml")
 	if err != nil {
 		panic(err)
 	}

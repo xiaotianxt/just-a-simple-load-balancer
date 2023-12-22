@@ -1,0 +1,10 @@
+version: '3.8'
+services:
+  load-balancer:
+    image: xiaotianxt/just-a-simple-load-balancer:latest
+    restart: always
+    ports:
+      - 8088:8088
+    volumes:
+      - ./config.yaml:/app/config.yaml
+    container_name: load-balancer
