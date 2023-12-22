@@ -1,5 +1,5 @@
 # Start from the latest golang base image
-FROM golang:latest
+FROM golang:latest AS build
 
 # Add Maintainer Info
 LABEL maintainer="xiaotianxt <tianyp@pku.edu.cn>"
@@ -17,10 +17,16 @@ RUN go mod download
 COPY . .
 
 # Build the Go app
-RUN go build -o main .
+RUN CGO_ENABLED=0 go build -o main .
+
+# Start from a scratch image
+FROM scratch
+
+# Copy the binary from the build stage
+COPY --from=build /app/main /main
 
 # Expose port 8088 to the outside world
 EXPOSE 8088
 
 # Command to run the executable
-CMD ["./main"]
+CMD ["/main"]
